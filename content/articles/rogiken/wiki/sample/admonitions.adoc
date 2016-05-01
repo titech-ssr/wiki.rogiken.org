@@ -1,0 +1,25 @@
+---
+title: "Admonitionsサンプル"
+created_at: 2016-05-01T23:38:03+0900
+excerpt: "Admonitionsのサンプル。"
+---
+
+[NOTE]
+.のーと
+NOTE
+
+[TIP]
+.ちっぷ
+TIP
+
+[CAUTION]
+.ちゅーい
+CAUTION
+
+[WARNING]
+.けいこく
+WARNING
+
+[IMPORTANT]
+.じゅーよー
+IMPORTANT

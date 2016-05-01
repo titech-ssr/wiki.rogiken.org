@@ -1,0 +1,35 @@
+<% header_level = @header_level || 2 %>
+<% header_open_tag = "<h#{header_level} class='list-group-item-heading'>" %>
+<% header_close_tag = "</h#{header_level}>" %>
+
+<div class="panel panel-default">
+	<% unless @panel_heading.nil? %>
+		<div class="panel-heading">
+			<%= @panel_heading %>
+		</div>
+	<% end %>
+	<% unless @panel_body.nil? %>
+		<div class="panel-body">
+			<%= @panel_body %>
+		</div>
+	<% end %>
+	<div class="list-group">
+	<% @target_items.each do |item| %>
+		<a class="list-group-item" href="<%= item.path %>">
+			<%= header_open_tag %><%= item[:title] %><%= header_close_tag %>
+			<div class="list-group-item-text">
+				<%= render '/part/created-at.*', target: item %>
+				<!-- a要素内部にa要素をネストすることはできないため、ここでhtagsを表示することはできない... -->
+				<%#= render '/part/htags.*', target: item %>
+				<% if excerpt = item[:excerpt] %>
+					<p>
+						<%= h excerpt %>
+					</p>
+				<% else %>
+					<p>(No summary provided.)</p>
+				<% end %>
+			</div>
+		</a>
+	<% end %>
+	</div>
+</div>

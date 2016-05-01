@@ -1,0 +1,10 @@
+<% if dest = @item[:redirect_to] %>
+<div class="alert alert-info">
+	<p>
+		<a href="<%= dest %>">
+			このページからリダイレクトが設定されています。
+			自動的に移動されない場合、'このリンクをクリックしてください。
+		</a>
+	</p>
+</div>
+<% end %>

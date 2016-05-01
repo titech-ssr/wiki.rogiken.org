@@ -1,0 +1,21 @@
+<%# prev_item_ = prev_item(sorted_articles) %>
+<%# next_item_ = next_item(sorted_articles) %>
+<%# prev_path = prev_item_.path if prev_item_ %>
+<%# next_path = next_item_.path if next_item_ %>
+<%# render '/page-base.*',
+		prev_uri: prev_path,
+		next_uri: next_path do %>
+<% render '/page-base.*' do %>
+
+<article>
+	<h1><%= h @item[:title] %></h1>
+	<aside class="article-info">
+		<%= render '/part/created-at.*' %>
+		<%= render '/part/htags.*' %>
+		<%= render '/part/status.*' %>
+	</aside>
+	<hr />
+	<%= yield %>
+</article>
+
+<% end %>

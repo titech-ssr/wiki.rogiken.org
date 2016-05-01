@@ -1,0 +1,20 @@
+---
+title: "Tags Tree"
+---
+
+<% root_node = articles_htag_items_tree %>
+
+<section>
+	<h1><%= @item[:title] %></h1>
+	<p>
+		<a href="search.html">検索はこちら</a>
+	</p>
+	<section>
+		<h2>Tags</h2>
+		<ul>
+			<% root_node.children.each do |child| %>
+				<%= print_tagtree child, '/tags/' %>
+			<% end %>
+		</ul>
+	</section>
+</section>

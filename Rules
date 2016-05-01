@@ -1,0 +1,116 @@
+#!/usr/bin/env ruby
+
+# Preprocess {{{1
+
+preprocess do
+  #create_tag_pages
+  create_htag_pages('/tags/', items: articles)
+end
+
+# }}}1
+
+# sass partial.
+ignore '/**/_*'
+# vim tmp file.
+ignore '/**/.*.swp'
+
+
+compile '/articles/**/*.html' do
+  filter :colorize_syntax, :default_colorizer => :pygmentsrb
+  layout '/article.*'
+  filter :relativize_paths, type: :html
+end
+
+compile '/articles/**/*.adoc' do
+  filter :asciidoctor, linkcss: true
+  filter :colorize_syntax, :default_colorizer => :pygmentsrb
+  layout '/article.*'
+  filter :relativize_paths, type: :html
+end
+
+compile '/assets/**/*.scss' do
+  filter :sass, syntax: :scss
+  filter :relativize_paths, type: :css
+end
+
+compile '/tags/index.html.erb' do
+  filter :erb
+  layout '/page-base.*'
+  filter :relativize_paths, type: :html
+end
+
+compile '/tags/search.html' do
+  filter :colorize_syntax, :default_colorizer => :pygmentsrb
+  layout '/page-base.*'
+  filter :relativize_paths, type: :html
+end
+
+compile '/tags/**/*.html' do
+  layout '/htag-page.*'
+  filter :relativize_paths, type: :html
+end
+
+compile '/tags/**/*.json' do
+  layout '/htag-key.json'
+end
+
+compile '/feed.xml' do
+  filter :erb
+end
+
+compile '/**/*.html' do
+  layout '/page-base.html'
+  filter :relativize_paths, type: :html
+end
+
+compile '/**/*.html.erb' do
+  filter :erb
+  layout '/page-base.html'
+  filter :relativize_paths, type: :html
+end
+
+compile '/**/*.json.erb' do
+  filter :erb
+end
+
+compile '/**/*' do
+  write item.identifier.to_s
+end
+
+#route '/articles/**/*.{html,adoc}' do
+  #if item.identifier =~ '/index.*'
+    #'/index.html'
+  #else
+    #item.identifier.without_ext + '/index.html'
+  #end
+#end
+
+route '/articles/**/index.{html,adoc}' do
+  relpath = /^\/[^\/]*(\/.*)$/.match(@item.identifier.without_ext).captures[0]
+  relpath + '.html'
+end
+
+route '/articles/**/*.{html,adoc}' do
+  relpath = /^\/[^\/]*(\/.*)$/.match(@item.identifier.without_ext).captures[0]
+  relpath + '/index.html'
+end
+
+route '/assets/**/*.scss' do
+  @item.identifier.without_ext + '.css'
+end
+
+route '/assets/**/*' do
+  @item.identifier.to_s
+end
+
+route '/**/*.{html,json}.erb' do
+  @item.identifier.without_ext
+end
+
+route '/**/*' do
+  @item.identifier.to_s
+end
+
+layout '/**/*', :erb
+
+# vim: set foldmethod=marker :

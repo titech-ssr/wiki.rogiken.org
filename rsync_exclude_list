@@ -1,0 +1,4 @@
+# This file!
+rsync_exclude_list
+# non-master branches
+/branch/

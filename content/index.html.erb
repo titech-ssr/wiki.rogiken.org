@@ -1,0 +1,29 @@
+---
+title: Rogiken wiki
+excerpt: ロ技研wikiのトップページ。
+created_at: 2016-04-30T23:12:43+0900
+kind: article
+---
+
+<section>
+	<h1>Rogiken wiki</h1>
+	<section>
+		<h2><i class="fa fa-info-circle"></i>このwikiについて</h2>
+		<p>
+			<a href="https://wiki.rogiken.org/">東京工業大学 ロボット技術研究会</a>のwikiです。<br />
+			編集は<a href="https://github.com/titech-ssr/wiki.rogiken.org">git repository</a>から行ってください。
+		</p>
+		<p>
+			記事の追加・編集の際には<a href="rogiken/wiki/guideline">wikiガイドライン</a>を参照してください。
+		</p>
+	</section>
+	<section>
+		<h2>最近更新された項目</h2>
+		<%#= render '/part/item-list.*', target_items: sorted_articles[0...20], header_level: 3 %>
+		<p>未実装</p>
+	</section>
+	<section>
+		<h2>最近作成された項目</h2>
+		<%= render '/part/item-list.*', target_items: sorted_articles[0...20], header_level: 3 %>
+	</section>
+</section>

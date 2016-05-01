@@ -1,0 +1,6 @@
+---
+title: ロ技研wiki
+author_name: 東京工業大学 ロボット技術研究会
+author_uri: http://wiki.rogiken.org/
+---
+<%= atom_feed :limit => 15 %>

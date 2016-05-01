@@ -1,0 +1,20 @@
+<% if @item[:status] == 'draft' %>
+<div class="alert alert-warning">
+	<p>
+		<i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+		この記事は<ruby>草案<rp>(</rp><rt>draft</rt><rp>)</rp></ruby>です。
+	</p>
+</div>
+<% end %>
+
+<% if outdated_at = @item[:outdated_at] %>
+<% date_str = attribute_to_time(outdated_at).strftime('%F') %>
+<div class="alert alert-danger">
+	<p>
+		<i class="fa fa-calendar-times-o" aria-hidden="true"></i>
+		[<time datetime="<%= date_str %>"><%= date_str %></time>]
+		情報が古くなっています。
+		参考にすべきではありません。
+	</p>
+</div>
+<% end %>

@@ -1,0 +1,11 @@
+---
+title: "Wiki機能サンプル"
+created_at: 2016-05-01T23:39:48+0900
+excerpt: "Wiki機能のサンプル一覧。"
+---
+
+リダイレクト::
+    - link:/rogiken/wiki/sample/redirect_src[リダイレクト元]
+    - link:/rogiken/wiki/sample/redirect_dest[リダイレクト先]
+admonition::
+    link:/rogiken/wiki/sample/admonitions[admonitions]

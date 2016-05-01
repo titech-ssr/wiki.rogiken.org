@@ -1,0 +1,16 @@
+<% target = @target || @item %>
+<% if htags = target[:htags] %>
+	<% htags_root = '/tags/' %>
+	<div class="htags">
+		<div>
+			<a href="<%= htags_root %>index.html">
+				<i class="fa fa-tags"></i> Tags
+			</a>:
+			<% htags.each do |tag| %>
+				<ul class="breadcrumb">
+					<%= htag_breadcrumb_li tag, htags_root %>
+				</ul>
+			<% end %>
+		</div>
+	</div>
+<% end %>

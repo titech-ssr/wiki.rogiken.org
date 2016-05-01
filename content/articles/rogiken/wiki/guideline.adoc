@@ -1,0 +1,138 @@
+---
+title: "Wikiガイドライン"
+created_at: 2016-04-30T23:12:43+0900
+excerpt: "ロ技研Wikiのガイドライン。"
+kind: article
+status: draft
+htags:
+  - "ロ技研/ガイドライン/wiki"
+---
+
+:icons: font
+:experimental:
+
+[[how-to-create-and-edit-article]]
+== 記事の作成・編集
+
+[[file-name-and-file-format]]
+=== ファイル名とファイル形式
+ファイルの拡張子は `.adoc` 、形式は link:http://www.methods.co.nz/asciidoc/[asciidoc]。
+
+asciidocについては以下のページが役に立つでしょう。
+
+- link:http://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]
+- link:http://qiita.com/xmeta/items/de667a8b8a0f982e123a[AsciiDoc入門 - Qiita]
+
+[NOTE]
+.markdownを採用しない理由
+====
+様々な場所で言われている通り、markdownには以下のような欠点があります。
+
+- 方言が多い
+- 表現力に乏しい
+
+これは長く情報を残していくうえで致命的です。
+
+一方、asciidocは、拡張こそありますが、互換性問題はmarkdownほど厄介ではなく、表現力はmarkdownより格段に上です。
+(markdownで書けるものはすべてasciidocでも書けることでしょう。)
+よって、このwikiではmarkdownではなく、asciidocを採用することにしました。
+
+====
+
+[[frontmatter]]
+=== frontmatter
+ファイルの先頭に以下のようなものを置く必要があります。
+
+[[frontmatter-example1]]
+.frontmatterの例
+--------
+---
+title: "記事タイトル"
+created_at: 1999-12-31T23:34:45+0900
+kind: article
+outdated_at: 2010-12-31+0900
+---
+--------
+
+[[frontmatter-attributes]]
+.frontmatterに指定できる属性の一覧
+[options="header"]
+|====
+| 属性          | 値                            | 必須？    | 値の形式
+| `title`       | 記事のタイトル                | *必須*    | 文字列 (非HTML, 非asciidoc)
+| `created_at`  | 作成日時                      | *必須*    | ISO8601
+| `updated_at`  | 更新日時                      | 任意      | ISO8601
+| `excerpt`     | 記事の概要                    | *必須*    | 文字列 (非HTML, 非asciidoc)
+| `kind`        | 記事の種類                    | *必須*    | `article` に固定
+| `status`      | 記事の状態                    | 任意      | `draft`
+| `outdated_at` | 記事がもはや古すぎて現状に似わないとマークされた日時  | 任意      | ISO8601
+| `redirect_to` | リダイレクト先の記事のパス    | 任意      | 文字列 (`/` から始まるパス)
+|====
+
+[TIP]
+.記事の更新
+====
+`updated_at` は記事を更新した場合、必ず指定してください。 +
+必ずだぞ！
+
+====
+
+[TIP]
+.特殊文字のエスケープ
+====
+記事タイトルは空白文字を含み得るため、 `"` で括ることが推奨されます。
+文字列中にダブルクォート `"` や `\` 等の特殊文字を含むなら、 `\"` や `\\` にする等、しっかりエスケープしてください。
+
+====
+
+[[header-id-and-filename]]
+=== 見出しのIDとファイル名
+
+wikiの記事は、サイト内外からリンクされる可能性があります。
+しかし、迂闊にファイル名を変更すると、それらのリンクが無効になってしまいます。
+よって、**一度作った記事のファイル名やパスの変更は、極力避けてください**。
+(時間の経った物ほど特にそうです。)
+
+代わりに、記事タイトルはファイル名やパスと連動していないので、変更しても問題ありません。
+
+見出しのIDについては、できれば**必ず付ける**ようにしてください。
+// 「できれば必ず」 is 何...
+英語に自身がなければ乱数でもいいでしょう。
+UUIDとかで適当にどうぞ。
+
+[[header-id-example1]]
+.見出しのID
+----
+[[header-id]]
+== 見出し
+↑ここでいう `header-id` が見出しのIDです。
+----
+
+ファイル名と同様の理由で、見出しのidの変更も避けるべきでしょう。
+(見出しのIDも外部からのリンクで使われることがあるからです。)
+ただし、内容に大きな変化があり、変更前とはもはや別物のセクションになった場合であれば、場合はその限りではありません。
+
+どうしても記事の移動が必要になった場合、元のファイルの位置に `redirect_to` を設定することで、古い場所へのリンクからのアクセスも新しい記事へ誘導できるようにしてください。
+
+[NOTE]
+.`redirect_to`
+====
+`redirect_to` のサンプルは link:/rogiken/wiki/sample/redirect_src[こちら]
+
+====
+
+[[publish-articles]]
+== 記事を公開する
+
+[[git-commit]]
+=== Gitリポジトリにコミットする
+link:https://github.com/titech-ssr/wiki.rogiken.org[リポジトリはGitHubにあります]。
+masterブランチに直接commitするよりは、一度別のブランチを用意してそちらにpushし、問題なさそうであればmasterにmergeする、という流れが良いでしょう。
+
+GitやGitHubの使い方については、そのうち誰かが書いてくれるはずです。
+きっと。
+
+[[reporting-issue]]
+=== 問題の報告
+誤字脱字や内容の問題を発見したり、疑問点などがある場合は、 link:https://github.com/titech-ssr/wiki.rogiken.org/issues[Issues] から報告してください。
+(一応、同じことが報告されていたり解決済みになっていないか、過去のものを簡単に確認してください。)
