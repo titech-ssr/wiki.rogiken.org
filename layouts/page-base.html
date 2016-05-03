@@ -40,7 +40,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
 
 	<!-- atom feed -->
-	<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="何とは言わない天然水飲みたさ" />
+	<link rel="alternate" type="application/atom+xml" href="/feed.xml" title="東工大 ロ技研wiki" />
 
 	<% if @prev_uri %>
 		<link rel="prev" href="<%= @prev_uri %>" />
@@ -52,6 +52,7 @@
 	<meta name="generator" content="Nanoc <%= Nanoc::VERSION %>">
 
 	<!-- highlight.js 9.0.0 -->
+	<!--
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css" />
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 	<script>
@@ -60,6 +61,7 @@
 		});
 		hljs.initHighlightingOnLoad();
 	</script>
+	-->
 </head>
 <body>
 	<%= render '/part/navbar-default.*' %>
