@@ -77,22 +77,10 @@ compile '/**/*' do
   write item.identifier.to_s
 end
 
-#route '/articles/**/*.{html,adoc}' do
-  #if item.identifier =~ '/index.*'
-    #'/index.html'
-  #else
-    #item.identifier.without_ext + '/index.html'
-  #end
-#end
-
-route '/articles/**/index.{html,adoc}' do
-  relpath = /^\/[^\/]*(\/.*)$/.match(@item.identifier.without_ext).captures[0]
-  relpath + '.html'
-end
-
-route '/articles/**/*.{html,adoc}' do
-  relpath = /^\/[^\/]*(\/.*)$/.match(@item.identifier.without_ext).captures[0]
-  relpath + '/index.html'
+route %r[/articles(/.+?)(?:/index)?\.(?:html|adoc)$] do |path|
+  # Disallow creating `/index.html` (top page).
+  nil if path.empty?
+  path[0] + '/index.html'
 end
 
 route '/assets/**/*.scss' do
