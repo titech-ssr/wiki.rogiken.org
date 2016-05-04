@@ -1,0 +1,153 @@
+---
+title: "ブログ記事の作り方"
+created_at: 2016-05-04T20:16:59+0900
+excerpt: "ロ技研ブログ(新)の記事の作り方。"
+kind: article
+status: draft
+htags:
+  - "ロ技研/ブログ"
+---
+
+[[abstract]]
+== 概要
+ブログ記事は、このwikiと少しだけ違うルールで変換が行われています。 +
+このページでは、記事の作り方について簡単に解説します。
+
+大雑把に、以下のような流れになります。
+
+. xref:creating-member-page[著者データを追加する(初回のみ)]
+. xref:writing-article[記事を書く]
+. xref:pushing-to-the-remote-repository[リポジトリにpushする]
+
+以下での本文中のファイルパスは、すべてリポジトリのトップを基点にしていると考えてください。
+
+[[creating-member-page]]
+== 著者についてのページを作る(初回のみ)
+ブログは、wikiと違ってページごとの著者が明確なので、その情報も記事とともに表示されるようになっています。 +
+そのため、記事を作るなら著者についての情報も同時に追加する必要があります。
+
+以下のような感じのファイルを作ります。 +
+ファイル名(パス)は `/content/members/入学年4桁/英数字の名前/index.adoc` にしてください。 +
+英数字の名前は、英数字に加えてハイフン(`-`)とアンダースコア(`_`)も使って構いません。
+
+./content/members/2099/poyotarou/index.adoc
+--------
+---
+title: "ぽよ太郎"
+kind: member
+twitter:
+  - poyotarou12312
+  - poyotarou_rogy
+github: poyotarou12312
+web: "http://example.com/~poyotarou"
+icon: "/members/2099/poyotarou/poyo_icon2.png"
+bio:
+  'default': 'ぽよ太郎ですぽよ〜'
+  'poyoken': 'ぽよ研の総帥です。'
+---
+
+普段は主にぽよを作っている。 +
+ぽよよ〜ん。
+--------
+
+この例であれば、 `/content/members/2099/poyotarou/poyo_icon2.png` も同時に作る必要があります。
+
+属性の意味は以下のようになっています。
+
+[options="header"]
+|====
+| 属性      | 型                | 必須(個数)/任意   | 意味/値
+| title     | 文字列            | 必須(1)           | 表示する名前
+| kind      | 文字列            | 必須(1)           | `member` に固定
+| twitter   | 文字列のリスト    | 任意(0〜)         | twitterアカウント(`@` なし)
+| github    | 文字列            | 任意(0〜1)        | GitHubアカウント
+| web       | 文字列(url)       | 任意(0〜1)        | 自分のウェブページ
+| icon      | 文字列(パス)      | 必須(1)           | アイコンのパス(後述)
+| bio       | 辞書              | 必須              | 記事の下部に表示される著者の説明文。
+|====
+
+[[member-icon]]
+=== アイコン画像の場所
+たとえば、上例の「ぽよ太郎」氏が `/content/members/2099/poyotarou/index.adoc` でファイルを作ったなら、
+`/content/members/2099/poyotarou/` というディレクトリ以下にアイコンの画像ファイルを置いてください。 +
+画像の形式はpng, jpg, gif, svg等が好ましいです。 +
+表示時のサイズは不定なので、そこそこ大きい方が良いかと思われます。
+
+
+[[writing-article]]
+== 記事を書く
+
+[[creating-frontmatter]]
+=== frontmatterを書く
+記事ファイル(AsciiDoc)の先頭に、以下のようなメタデータ用セクションを追加します。
+
+--------
+---
+created_at: 2016-05-04T20:30:49+0900
+title: "ぽよ"
+htags:
+  - "ロ技研/rogyゼミ"
+  - "ロ技研/研究室/ぽよぽよ研"
+kind: article
+authors:
+  - "2014/poyotarou/poyoken"
+
+excerpt: "rogyゼミで発表した「ぽよ」について。"
+---
+--------
+
+指定できる属性は以下のとおりです。
+順番は問われません。
+
+[[frontmatter-attributes]]
+.frontmatterに指定できる属性の一覧
+[options="header"]
+|====
+| 属性          | 値                            | 必須？    | 値の形式
+| `title`       | 記事のタイトル                | *必須*    | 文字列 (非HTML, 非asciidoc)
+| `created_at`  | 作成日時                      | *必須*    | ISO8601
+| `updated_at`  | 更新日時                      | 任意      | ISO8601
+| `excerpt`     | 記事の概要                    | *必須*    | 文字列 (非HTML, 非asciidoc)
+| `kind`        | 記事の種類                    | *必須*    | `article` に固定
+| `status`      | 記事の状態                    | 任意      | `draft`
+| `outdated_at` | 記事がもはや古すぎて現状に似わないとマークされた日時  | 任意      | ISO8601
+| `redirect_to` | リダイレクト先の記事のパス    | 任意      | 文字列 (`/` から始まるパス)
+|====
+
+[TIP]
+.注意事項
+====
+記事を更新したら `updated_at` を追加/更新する、文字列中の特殊文字はエスケープする、等の注意事項はwikiの記事と同じです。
+
+====
+
+[TIP]
+.`outdated_at` の使いどころ
+====
+ブログは時事ネタも書くものなので「現状に似わない」ものだろうと関係ない、と思うかもしれません。 +
+しかし、トラブル解決や布教に関する記事などは、やはりその手法などが古くなることはあります。 +
+古い記事は参照されづらくなるものなので、厳格に管理される必要がある、とは言いませんが、あまりに現状と違うことに気付いたら
+link:https://github.com/titech-ssr/blog.rogiken.org/issues[Issues] を使って報告したり、 `updated_at` を追加しておくなどするのが良いでしょう。
+
+====
+
+[[writing-article-body]]
+=== 本文を書く
+frontmatterを書いたら、その下に空行を空けたのち、普通にAsciiDocで記事本文を書きましょう。
+
+[[check]]
+=== 確認
+本文を書き終えたら、実際のサイト上でどのような見た目になるのか確認できます。 +
+rubyとbundlerがインストールされている環境で、リポジトリのトップディレクトリにおいて
+`bundle install --path vendor/bundle` コマンドを実行して、必要なパッケージを導入したのち、
+`bundle exec nanoc && bundle exec nanoc view` を実行すると、
+localhostの3000番ポート(`localhost:3000`)から実際のサイトとほぼ同じ状態のものにアクセスできます。
+
+
+[[pushing-to-the-remote-repository]]
+== GitHubへpushする
+
+新規作成/編集したファイルを `git add` で追加して `git commit` でコミットしたら、
+link:https://github.com/titech-ssr/blog.rogiken.org[このGitHubリポジトリ] へpushしてください。 +
+しばらくしたら(数秒〜数分)、ブログが更新されているはずです。 +
+link:https://blog.rogiken.org/[ここからアクセス] して確認してみましょう。
