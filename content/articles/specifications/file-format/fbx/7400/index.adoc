@@ -89,3 +89,5 @@ link:http://help.autodesk.com/view/FBX/2016/ENU/?guid=__files_GUID_105ED19A_9A5A
 link:http://download.autodesk.com/us/fbx/20112/FBX_SDK_HELP/index.html?url=WS1a9193826455f5ff-150b16da11960d83164-6c85.htm,topicNumber=d0e51[Autodesk FBX SDK Progammer's Guide: Welcome to FBX SDK]::
     FBX SDK 2011の公式ドキュメント。
     古いが、役に立つ。
+link:http://www.slideshare.net/L1048576/fbx-1-1[Fbx解説 (1 構文編) (1)]::
+    rogyゼミ2016/01での発表。
