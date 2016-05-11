@@ -1,0 +1,91 @@
+---
+title: "FBX 7.4/7.5 仕様解説"
+created_at: 2016-05-10T18:40:44+0900
+excerpt: "FBX 7.4/7.5 の仕様について解説。"
+kind: article
+htags:
+  - "仕様解説/ファイル形式/FBX"
+---
+
+[[about-this-document]]
+== この文書について
+この文書は日本語でFBXファイルの構造についてメモをとったものである。
+FBXファイルについては公式に仕様が公開されているわけではないため、誤りや古い情報、不正確な言葉等が含まれている可能性があることに留意せよ。
+また、この文書中で用いる用語は正式なものとは限らない。
+
+この文書はFBX7.4または7.5を想定して書いている。
+(が、7.3とも共通点が多いはずである。)
+
+FBX7.5は2016年1月にリリースされたFBX SDK 2016から対応している。
+そのため、それ以前のリソースの大多数はFBX 7.4や7.3、或いはそれ以前のものであろう。
+
+
+[[abstract]]
+== 概要
+FBX形式は3Dコンテンツを保持するフォーマットであるが、実はFBXファイルの形式そのもの(構文)には、
+XMLやjson等のように、任意の木構造を保持できる表現力がある。 +
+喩えるならCOLLADA形式のようなもので、
+COLLADA形式は**3Dコンテンツを保持するためのCOLLADAというスキーマ**(特定の意味を表現するためのデータ構造の制約)と、
+**COLLADAのデータ構造を表現するための構文(シリアライズの形式)としてのXMLフォーマット**の2つに、完全に分離して考えることが可能である。
+FBX形式も同じことで、**3Dコンテンツとして解釈するためのノード名や親子関係の制約としてのFBXデータ**と、
+**その木構造を表現するための構文(シリアライズの形式)としてのFBX形式**に分けて考えることができる。
+
+よって以下では、その2つを完全に分けて解説する。
+
+
+[[fbx-as-syntax]]
+== 構文(シリアライズ形式)としてのFBX
+FBX形式には、バイナリ形式とASCII形式が存在する。
+これらのフォーマットは、ほとんど同じデータ構造を表現することができる。
+
+正式な名称が不明なため、以下の文書ではバイナリ形式のものを**_FBX Binary_**、ASCII形式のものを**_FBX ASCII_**と呼称する。
+
+[NOTE]
+.スキーマの違い
+====
+ほとんど同じデータ構造を表現できるとはいっても、実際にAutodesk公式のライブラリや製品からエクスポートされたFBXファイルの構造には若干の差異がある。
+具体的には、__FBX Binary__ではトップレベルに `FileId` という16バイトのバイナリデータが存在するが、__FBX ASCII__では `FileId` は存在しない。
+
+====
+
+
+[[links-for-detailed-documents]]
+== 詳細な文書へのリンク
+- link:syntax[FBX構文]
+  * link:syntax/binary[_FBX Binary_]
+  * link:syntax/ascii[_FBX ASCII_]
+- link:structure[FBXデータの構造]
+
+
+[[other-info]]
+== その他おまけ情報
+
+[[blender]]
+=== Blender
+blender-2.72b時点では、blender(のプラグイン？)は__FBX ASCII__のエクスポートでFBX 6にしか対応しておらず、
+また、__FBX ASCII__のインポートは、そのFBXバージョンに関係なく非対応である。
+
+また、エクスポートされた__FBX Binary__はFBX 7であるが、ファイル末尾のフッタの前に正しいパディングが入っておらず、
+16バイトアラインされていない。
+
+
+[[links-for-external-information]]
+== 参考文献
+link:https://code.blender.org/2013/08/fbx-binary-file-format-specification/[FBX binary file format specification | Blender Code]::
+    __FBX Binary__についての詳細な説明がある。
+link:http://wiki.blender.org/index.php/User:Mont29/Foundation/FBX_File_Structure[User:Mont29/Foundation/FBX File Structure - BlenderWiki]::
+    FBXのデータ構造についての詳細な説明がある。
+link:https://github.com/UTSGamesstudio/ANSKLibrary/wiki[Home · UTSGamesstudio/ANSKLibrary Wiki]::
+    FBXのデータ構造についての詳細な説明がある。
+link:https://banexdevblog.wordpress.com/2014/06/23/a-quick-tutorial-about-the-fbx-ascii-format/[A quick tutorial about the FBX ASCII format | Banex Developer Blog on WordPress.com]::
+    __FBX ASCII__についてと、頂点や法線等のメッシュについてのデータの解釈の説明がある。
+    画像もあり、メッシュの解釈については非常にわかりやすい。
+link:http://marupeke296.com/FBX_main.html[FBX習得編 - ゲームつくろー！]::
+    バージョンは古いと思われるが、FBX SDKを用いてのFBXデータの利用の解説がある。
+link:http://help.autodesk.com/view/FBX/2016/ENU/?guid=__files_GUID_105ED19A_9A5A_425E_BFD7_C1BBADA67AAB_htm[Help: Welcome to the FBX SDK]::
+    FBX SDK 2016の公式のドキュメント。
+    CC-BY-NC-SA 3.0なので、活用しよう。
+    ただし、javascriptバリバリ使っていてとても重い、Doxygenのコメント方法が間違っていて項目がズレている、などいろいろな問題がある。
+link:http://download.autodesk.com/us/fbx/20112/FBX_SDK_HELP/index.html?url=WS1a9193826455f5ff-150b16da11960d83164-6c85.htm,topicNumber=d0e51[Autodesk FBX SDK Progammer's Guide: Welcome to FBX SDK]::
+    FBX SDK 2011の公式ドキュメント。
+    古いが、役に立つ。
