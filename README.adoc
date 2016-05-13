@@ -10,3 +10,15 @@
 
 == Copyright
 未定。
+
+== Usage
+
+=== ビルドする方法
+
+[source, shell]
+----
+$ cd path/to/wiki.rogiken.org
+$ bundle install --path vendor/bundle
+$ bundle exec nanoc && bundle exec nanoc view
+----
+以上のコマンドを実行後、localhostの3000番ポート(`localhost:3000`)から実際のサイトとほぼ同じ状態のものにアクセスできる
