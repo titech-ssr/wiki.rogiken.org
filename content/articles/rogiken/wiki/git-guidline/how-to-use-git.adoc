@@ -1,73 +1,71 @@
 ---
-title: "gitガイドライン"
+title: "git ガイドライン"
 created_at: 2016-05-12T00:00:00+0900
-excerpt: "gitの使い方ガイドライン。"
+excerpt: "git の使い方ガイドライン。"
 kind: article
 status: draft
 htags:
-  - "ロ技研/ガイドライン/git"
+  - ロ技研/ガイドライン/git
+
 ---
 
-= この記事の目的
+:icons: font
+:experimental:
+
+== 概要
 
 * git とは何なのか学ぶ
 * バージョン管理について学ぶ
 * Git のある程度の使い方を学ぶ
 
-= git ガイドライン
-== バージョン管理
-
-=== バージョン管理とは
+== 本文
+=== バージョン管理
 
 バージョン管理とは、自分がプログラム（もっと平たく言ってしまえばテキストファイル）に加えた変更を記録していながら、変更の歴史を作っていくことです。手動でやるのはあまりに非効率的なので、git という便利なツールを使います。 +
 バージョン管理システムは、ある程度の規模があって、大きな変更を加える可能性のあるプロジェクトに対して有効です。 +
+
+[NOTE]
 バージョン管理システムで大事な概念は「リモート」と「ローカル」の2つです。簡単に説明すると、「ローカル」は手元のマシン、「リモート」はサーバーとなります。ローカルで編集した内容をリモートに置くことによってローカルとの差分を見ながらバージョン管理します。
 
-=== git と GitHub
-
+[NOTE]
 link:https://git-scm.com/[git] はバージョン管理システムであり、link:https://github.com/[GitHub] はウェブサービスです。git のホスティングサービスとしては GitHub が有名で、他には link:https://ja.atlassian.com/software/bitbucket[bitbucket] などがありますが、弊サークルでは GitHub を使っていきます。
 
-== git のインストール
-
-=== OS 別でのインストール方法
+=== git のインストール
 
 ==== Mac
 
-===== Homebrew
 まずは link:http://brew.sh/index_ja.html[Homebrew] というパッケージマネージャーをインストールしましょう。 コマンド1つでインストール出来ます。
 
-[source, shell]
+.Homebrew のインストール
 ----
 $ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ----
 
 念のためバージョンを確認してインストールが成功したかどうかチェックしましょう。
 
-[source, shell]
+.Homebrew のバージョン確認
 ----
 $ brew --version
 ----
 
 以下の様になったら成功しています。
 
-[source, shell]
+.Homebrew のバージョン確認の結果
 ----
 Homebrew 0.9.9 (git revision 2f20a; last commit 2016-05-15)
 Homebrew/homebrew-core (git revision 2fd046; last commit 2016-05-17)
 ----
 
-===== git のインストール
-
 Mac は標準で git がインストールされていますが、念のため Homebrew でインストールしておきます。
 
-[source, shell]
+.git のインストール
 ----
 $ brew install git
 ----
 
 バージョンを確認して以下の様になったら成功しています。
 
-[source, shell]
+.git のバージョン確認
 ----
 $ git --version
 git version 2.8.2
@@ -82,6 +80,8 @@ git version 2.8.2
 === GitHub アカウント作成手順
 
 . link:https://github.com/[GitHub] のサイトにアクセス
-image:images/github_top.png[aling="left"]
 . 必要事項を記入
-.. ID、メールアドレス、パスワードを入力して「Sigh up for GitHub」をクリック（以下の画像を参照）
+.. ID、メールアドレス、パスワードを入力して「Sigh up for GitHub」をクリック
+. 確認メール
+.. 登録したメールアドレスに確認メールが来るので、メールを開き、その中にある「verify email address」ボタンを押す
+.. 「Welcome to GitHub!」なるメールが来たら登録完了
