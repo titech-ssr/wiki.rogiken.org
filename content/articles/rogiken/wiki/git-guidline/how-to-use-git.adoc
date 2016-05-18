@@ -29,9 +29,11 @@ link:https://git-scm.com/[git] はバージョン管理システムであり、l
 
 == git のインストール
 
-== Mac
+=== OS 別でのインストール方法
 
-=== Homebrew
+==== Mac
+
+===== Homebrew
 まずは link:http://brew.sh/index_ja.html[Homebrew] というパッケージマネージャーをインストールしましょう。 コマンド1つでインストール出来ます。
 
 [source, shell]
@@ -54,7 +56,7 @@ Homebrew 0.9.9 (git revision 2f20a; last commit 2016-05-15)
 Homebrew/homebrew-core (git revision 2fd046; last commit 2016-05-17)
 ----
 
-=== git のインストール
+===== git のインストール
 
 Mac は標準で git がインストールされていますが、念のため Homebrew でインストールしておきます。
 
@@ -73,4 +75,13 @@ git version 2.8.2
 
 しかし、git をインストールしただけではアカウントがないのでコミット出来ません。次にアカウントを作りましょう。
 
-=== GitHub アカウント作成
+==== Linux
+
+==== Windows
+
+=== GitHub アカウント作成手順
+
+. link:https://github.com/[GitHub] のサイトにアクセス
+image:images/github_top.png[aling="left"]
+. 必要事項を記入
+.. ID、メールアドレス、パスワードを入力して「Sigh up for GitHub」をクリック（以下の画像を参照）
