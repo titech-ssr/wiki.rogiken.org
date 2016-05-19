@@ -14,11 +14,22 @@
 == Usage
 
 === ビルドする方法
-
 [source, shell]
 ----
 $ cd path/to/wiki.rogiken.org
 $ bundle install --path vendor/bundle
 $ bundle exec nanoc && bundle exec nanoc view
 ----
-以上のコマンドを実行後、localhostの3000番ポート(`localhost:3000`)から実際のサイトとほぼ同じ状態のものにアクセスできる
+以上のコマンドを実行後、localhostの3000番ポート(`localhost:3000`)から実際のサイトとほぼ同じ状態のものにアクセスできる。
+
+=== AsciiDoc とは？
+AsciiDoc とは markdown と同じ軽量マークアップ言語である。ロ技研 blog/wiki で採用されているマークアップ言語は markdown ではなく AsciiDoc であることに注意。チートシートは以下が参考になる。
+
+* link:http://qiita.com/xmeta/items/de667a8b8a0f982e123a[AsciiDoc入門] +
+* link:https://powerman.name/doc/asciidoc[AsciiDoc cheatsheet]
+
+=== GitHub が分からない人へ
+GitHubについて学習するには以下のサイトが参考になる。
+
+* link:http://techacademy.jp/magazine/6235[今さら聞けない！GitHubの使い方【超初心者向け】] +
+* link:https://gist.github.com/yatemmma/6486028[git初心者への道]
