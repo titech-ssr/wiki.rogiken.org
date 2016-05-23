@@ -4,7 +4,8 @@ created_at: 2016-05-22T23:51:57+09:00
 excerpt: "2016年5月部会です"
 kind: article
 htags:
-  - "ロ技研/部会ログ/2016年/05月"
+  - "ロ技研/部会ログ/2016年"
+  - "ロ技研/部会ログ/05月"
 ---
 :icons: font
 :experimental:
