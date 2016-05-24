@@ -16,7 +16,7 @@
 === ビルドする方法
 [source, shell]
 ----
-$ cd path/to/wiki.rogiken.org
+$ cd /path/to/wiki.rogiken.org
 $ bundle install --path vendor/bundle
 $ bundle exec nanoc && bundle exec nanoc view
 ----
@@ -33,3 +33,4 @@ GitHubについて学習するには以下のサイトが参考になる。
 
 * link:http://techacademy.jp/magazine/6235[今さら聞けない！GitHubの使い方【超初心者向け】] +
 * link:https://gist.github.com/yatemmma/6486028[git初心者への道]
+* link:http://www.backlog.jp/git-guide/[サルでも分かる Git 入門]
