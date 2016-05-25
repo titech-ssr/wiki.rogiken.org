@@ -40,7 +40,7 @@ htags:
 
 [[FET]]
 === FET
-[quote,https://twitter.com/minerallector[@minerallector]]
+[quote, 'https://twitter.com/minerallector[@minerallector]']
 ____
 FETあったけーよー
 ____
