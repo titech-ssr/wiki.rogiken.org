@@ -17,6 +17,7 @@ htags:
 [[caution]]
 == 注意
 [CAUTION]
+
 誤解を招くのでブログやwikiの他のページから参照しないこと。
 
 ファイル名はlとrが逆になっているので間違えないこと。
@@ -40,9 +41,9 @@ htags:
 [[FET]]
 === FET
 [quote,https://twitter.com/minerallector[@minerallector]]
-___
+____
 FETあったけーよー
-___
+____
 
 使い捨て熱源。電子回路に用いられる。養生テープから煙が出るぐらいに高温に
 なる。
