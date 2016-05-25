@@ -17,6 +17,7 @@ htags:
 に今あるかどうかを管理した方がいいのではということでこのページを作った。
 
 また、現在電子部品が足りないとき、このような紙を貼ることで対応している。
+
 image:/content/articles/rogiken/Buhin.jpg[
 "張り紙",width=128,
 link="/content/articles/rogiken/Buhin.jpg"]
