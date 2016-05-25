@@ -17,9 +17,9 @@ htags:
 に今あるかどうかを管理した方がいいのではということでこのページを作った。
 
 また、現在電子部品が足りないとき、このような紙を貼ることで対応している。
-image:/articles/rogiken/Buhin.jpg[
+image:/content/articles/rogiken/Buhin.jpg[
 "張り紙",width=128,
-link="/articles/rogiken/Buhin.jpg"]
+link="/content/articles/rogiken/Buhin.jpg"]
 
 これにより、多重に買って来てしまうことが無くなると期待出来る。
 
