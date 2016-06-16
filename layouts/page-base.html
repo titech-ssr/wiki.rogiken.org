@@ -64,13 +64,13 @@
 	-->
 
 	<!-- MathJax -->
-	<% if @item[:mathjax] %>
+	<% if mathjax_mode = @item[:mathjax] %>
 		<script type="text/x-mathjax-config">
 			MathJax.Hub.Config({
 				TeX: {
 					inlineMath: [['$','$'], ['\\(','\\)']],
 					processEscapes: true
-					<% if@item[:mathjax] == "AMS" %>
+					<% if mathjax_mode == "AMS" %>
 					,equationNumbers: {autoNumber: "AMS"}
 					<% end %>
 				}
