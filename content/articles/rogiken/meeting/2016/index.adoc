@@ -1,0 +1,8 @@
+---
+title: "rogy部会ログ 2016"
+created_at: 2016-05-31T18:19:02+09:00 
+excerpt: "rogyの部会のログです。4月はありません(忘れた)"
+---
+
+* link:/rogiken/meeting/2016/05[5月部会]
+* link:/rogiken/meeting/2016/06[6月部会]
