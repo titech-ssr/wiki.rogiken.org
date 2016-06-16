@@ -9,3 +9,5 @@ excerpt: "Wiki機能のサンプル一覧。"
     - link:/rogiken/wiki/sample/redirect_dest[リダイレクト先]
 admonition::
     link:/rogiken/wiki/sample/admonitions[admonitions]
+mathjaxによる数式::
+    link:/rogiken/wiki/sample/mathjax[MathJaxの有効化]
