@@ -62,6 +62,24 @@
 		hljs.initHighlightingOnLoad();
 	</script>
 	-->
+  <!-- MathJax Option -->
+  <% if @item[:mathjax] %>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      TeX: {
+        inlineMath: [['$','$'], ['\\(','\\)']],
+        processEscapes: true
+        <% if@item[:mathjax] == "AMS" %>
+        ,equationNumbers: {autoNumber: "AMS"}
+        <% end %>
+      }
+    });
+    </script>
+    <!--<script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>-->
+<script async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_CHTML">
+</script>
+  <% end %>
 </head>
 <body>
 	<%= render '/part/navbar-default.*' %>

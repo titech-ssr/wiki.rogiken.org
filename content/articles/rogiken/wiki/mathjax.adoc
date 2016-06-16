@@ -1,0 +1,36 @@
+---
+title: "MathJaxの有効化"
+created_at: 2016-06-16T21:15:57+09:00 
+excerpt: "MathJaxの有効化について"
+kind: article
+mathjax: AMS
+status: draft
+htags:
+  - "ロ技研/wiki/MathJax"
+---
+:stem: latexmath
+:icons: font
+:experimental:
+
+MathJaxによる数式の表示の提案です。
+
+frontmatterにmathjax属性を与えることで有効化出来ます。
+
+.例
+```
+mathjax: on
+```
+
+``mathjax: AMS``を使うことで数式番号が有効化されます。
+
+
+== 以下数式の例
+
+三角関数にはlatexmath:[\sin(x)]やlatexmath:[\cos(x)]があります。
+
+[latexmath]
+++++
+\begin{align}
+  \frac{1}{2\pi i} \int_c \frac{f(z)}{z-z_0} = f(z_0)
+\end{align}
+++++
