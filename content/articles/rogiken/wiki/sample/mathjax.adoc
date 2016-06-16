@@ -6,7 +6,7 @@ kind: article
 mathjax: AMS
 status: draft
 htags:
-  - "ロ技研/wiki/MathJax"
+  - "ロ技研/wiki"
 ---
 :stem: latexmath
 :icons: font
