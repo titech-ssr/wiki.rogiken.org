@@ -17,11 +17,12 @@ MathJaxによる数式の表示の提案です。
 frontmatterにmathjax属性を与えることで有効化出来ます。
 
 .例
-```
+[source]
+----
 mathjax: on
-```
+----
 
-``mathjax: AMS``を使うことで数式番号が有効化されます。
+`mathjax: AMS` を使うことで数式番号が有効化されます。
 
 
 == 以下数式の例
