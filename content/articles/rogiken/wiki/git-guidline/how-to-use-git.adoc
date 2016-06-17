@@ -112,6 +112,8 @@ link:https://git-scm.com/book/ja/v1/%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%82%8
 
 ==== Windows
 
+link:http://vdeep.net/git-for-windows[こちら]に詳しい導入が書かれているので、参考にしてください。 
+
 === GitHub アカウント作成手順
 
 . link:https://github.com/[GitHub] のサイトにアクセス
