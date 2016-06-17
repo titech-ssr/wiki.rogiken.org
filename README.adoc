@@ -9,6 +9,8 @@
 ファイル群は link:http://nanoc.ws/[nanoc] によって変換され、静的なwebサイトとしてロ技研のwebサーバで公開される。
 
 =======
+== Copyright
+未定。
 
 == Usage
 
