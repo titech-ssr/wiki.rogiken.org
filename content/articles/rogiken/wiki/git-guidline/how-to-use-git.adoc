@@ -12,13 +12,16 @@ htags:
 :icons: font
 :experimental:
 
+[[about]]
 == 概要
 
 * Git とは何なのか学ぶ
 * バージョン管理について学ぶ
 * Git のある程度の使い方を学ぶ
 
+[[main]]
 == 本文
+[[version-control]]
 === バージョン管理
 
 バージョン管理とは、自分がプログラム（もっと平たく言ってしまえばテキストファイル）に加えた変更を記録していながら、変更の歴史を作っていくことです。手動でやるのはあまりに非効率的なので、Git という便利なツールを使います。 +
@@ -32,8 +35,10 @@ htags:
 [NOTE]
 link:https://git-scm.com/[Git] はバージョン管理システムであり、link:https://github.com/[GitHub] はウェブサービスです。Git のホスティングサービスとしては GitHub が有名で、他には link:https://ja.atlassian.com/software/bitbucket[bitbucket] などがありますが、弊サークルでは GitHub を使っていきます。
 
+[[install-git]]
 === Git のインストール
 
+[[install-git-to-mac]]
 ==== Mac
 
 まずは link:http://brew.sh/index_ja.html[Homebrew] というパッケージマネージャーをインストールしましょう。 コマンド1つでインストール出来ます。
@@ -73,10 +78,12 @@ $ git --version
 git version 2.8.2
 ----
 
-しかし、Git をインストールしただけではアカウントがないのでコミット出来ません。次にアカウントを作りましょう。
+しかし、Git をインストールしただけではアカウントがないのでコミット出来ません。次に<<create-github-account,アカウントを作りましょう>>。
 
+[[install-git-to-linux]]
 ==== Linux
 
+[[install-git-from-source]]
 ===== ソースからのインストール
 
 Gitをインストールするためには、Gitが依存するライブラリーである、curl、zlib、openssl、expat、libiconvを入手する必要があります。
@@ -110,10 +117,12 @@ $ apt-get install git
 link:https://git-scm.com/book/ja/v1/%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%82%8B-Git%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB[Git公式ドキュメント]
 を参照してください。
 
+[[install-git-to-windows]]
 ==== Windows
 
 link:http://vdeep.net/git-for-windows[こちら]に詳しい導入が書かれているので、参考にしてください。 
 
+[[create-github-account]]
 === GitHub アカウント作成手順
 
 . link:https://github.com/[GitHub] のサイトにアクセス
@@ -123,8 +132,10 @@ link:http://vdeep.net/git-for-windows[こちら]に詳しい導入が書かれ�
 .. 登録したメールアドレスに確認メールが来るので、メールを開き、その中にある「verify email address」ボタンを押す
 .. 「Welcome to GitHub!」なるメールが来たら登録完了
 
+[[github-tutorial]]
 === GitHub チュートリアル
 
+[[git-account-seting]]
 ==== アカウント設定
 
 ローカルにも git の設定を適用させましょう。 +
@@ -140,6 +151,7 @@ $ vi .gitconfig
 [NOTE]
 [account name] は登録したアカウント名を、[mail address] は登録したメールアドレスを記入してください。そのとき `[ ]` は付けないように注意してください。
 
+[[create-repository]]
 ==== リポジトリを作る
 
 Git はリポジトリという単位でプロジェクト（簡単に言うとファイル群）を管理します。まず、git で管理したいディレクトリに移動します。そして、 git でファイルを管理するように認識させるように `$ git init` します。
@@ -149,6 +161,7 @@ $ git init
 ----
 これでカレントディレクトリ以下を git で管理出来るようになりました。この git で管理されているディレクトリのことを *リポジトリ* といいます。このディレクトリには `.git` というディレクトリが作成されます（`ls -A` で確認出来ます）。これは git が情報を保存するためのディレクトリであり、基本的にこのディレクトリを編集することはあまりありません。
 
+[[git-basic-workflow]]
 ==== Git の基本的なワークフロー
 
 ここから Git の基本的な使い方を説明します。 +
@@ -222,6 +235,7 @@ $ git pull
 
 これで基本的な流れは解説しました。他にも `branch` や `rebase` などといった機能があり、チーム開発には必須のコマンドです。次では `branch` について説明しますので、よく読んでおいてください。
 
+[[create-new-branch]]
 ==== ブランチを切る
 
 チーム開発では必須の機能です。ブランチとはいわば「パラレルワールド」であり、マスターブランチを全員が追跡する歴史だとしたら、自分が作ったブランチは自分がメインで追跡する歴史です。 +
