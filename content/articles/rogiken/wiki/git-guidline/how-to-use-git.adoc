@@ -19,6 +19,12 @@ htags:
 * バージョン管理について学ぶ
 * Git のある程度の使い方を学ぶ
 
+.注意
+[NOTE]
+以下の記述は CUI での操作を前提としています。 +
+CUI でしか Git は使えないわけではなく、GUI でも使えるアプリケーションはいくつかあり、その中でもlink:https://www.sourcetreeapp.com/[SourceTree]が有名です。 +
+GUI での操作を知りたいという方は link:http://qiita.com/takamichi_tsutsumi/items/6358a74a62d4fc15d1a5[SourceTreeの使い方] を参照してみてください。
+
 [[version-control]]
 == バージョン管理
 
