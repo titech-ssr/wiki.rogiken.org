@@ -1,0 +1,295 @@
+---
+title: "Git ガイドライン"
+created_at: 2016-05-12T00:00:00+0900
+excerpt: "Git の使い方ガイドライン。"
+kind: article
+status: draft
+htags:
+  - ロ技研/ガイドライン/Git
+
+---
+
+:icons: font
+:experimental:
+
+[[about]]
+== 概要
+
+* Git とは何なのか学ぶ
+* バージョン管理について学ぶ
+* Git のある程度の使い方を学ぶ
+
+.注意
+[NOTE]
+以下の記述は CUI での操作を前提としています。 +
+CUI でしか Git は使えないわけではなく、GUI でも使えるアプリケーションはいくつかあり、その中でもlink:https://www.sourcetreeapp.com/[SourceTree]が有名です。 +
+GUI での操作を知りたいという方は link:http://qiita.com/takamichi_tsutsumi/items/6358a74a62d4fc15d1a5[SourceTreeの使い方] を参照してみてください。
+
+[[version-control]]
+== バージョン管理
+
+バージョン管理とは、自分がプログラム（もっと平たく言ってしまえばテキストファイル）に加えた変更を記録していながら、変更の歴史を作っていくことです。手動でやるのはあまりに非効率的なので、Git という便利なツールを使います。 +
+バージョン管理システムは、ある程度の規模があって、大きな変更を加える可能性のあるプロジェクトに対して有効です。 +
+
+.「リモート」と「ローカル」
+[NOTE]
+バージョン管理システムで大事な概念は「リモート」と「ローカル」の2つです。簡単に説明すると、「ローカル」は手元のマシン、「リモート」はサーバーとなります。ローカルで編集した内容をリモートに置くことによってローカルとの差分を見ながらバージョン管理します。
+
+.Git と GitHub の違い
+[NOTE]
+link:https://git-scm.com/[Git] はバージョン管理システムであり、link:https://github.com/[GitHub] はウェブサービスです。Git のホスティングサービスとしては GitHub が有名で、他には link:https://ja.atlassian.com/software/bitbucket[bitbucket] などがありますが、弊サークルでは GitHub を使っていきます。
+
+[[install-git]]
+== Git のインストール
+
+[[install-git-to-mac]]
+=== Mac
+
+まずは link:http://brew.sh/index_ja.html[Homebrew] というパッケージマネージャーをインストールしましょう。 コマンド1つでインストール出来ます。
+
+.Homebrew のインストール
+----
+$ /usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+----
+
+念のためバージョンを確認してインストールが成功したかどうかチェックしましょう。
+
+.Homebrew のバージョン確認
+----
+$ brew --version
+----
+
+以下の様になったら成功しています。
+
+.Homebrew のバージョン確認の結果
+----
+Homebrew 0.9.9 (git revision 2f20a; last commit 2016-05-15)
+Homebrew/homebrew-core (git revision 2fd046; last commit 2016-05-17)
+----
+
+Mac は標準で git がインストールされていますが、念のため Homebrew でインストールしておきます。
+
+.Git のインストール
+----
+$ brew install git
+----
+
+バージョンを確認して以下の様になったら成功しています。
+
+.Git のバージョン確認
+----
+$ git --version
+git version 2.8.2
+----
+
+しかし、Git をインストールしただけではアカウントがないのでコミット出来ません。次に<<create-github-account,アカウントを作りましょう>>。
+
+[[install-git-to-linux]]
+=== Linux
+
+[[install-git-from-source]]
+==== パッケージマネージャーを使ったインストール
+
+Gitをインストールするためには、Gitが依存するライブラリーである、curl、zlib、openssl、expat、libiconvを入手する必要があります。
+例えば、もし（Fedoraなどで）yumか（Debianベースのシステムなどで）apt-getが入ったシステムを使っているのであれば、これらのコマンドの一つを依存対象の全てをインストールするのに使う事ができます。
+
+.依存ライブラリのインストール
+-----
+$ yum install curl-devel expat-devel gettext-devel \
+  openssl-devel zlib-devel
+
+$ apt-get install libcurl4-gnutls-dev libexpat1-dev gettext \
+  libz-dev libssl-dev
+-----
+
+もし Fedora を使っているのなら `yum` が使えます。
+
+.Linux へのインストール (`yum`)
+----
+$ yum install git
+----
+
+Ubuntu のような Debian ベースのディストリビューションなら `apt-get` が使えます。
+
+.Linux へのインストール (`apt-get`)
+----
+$ apt-get install git
+----
+
+
+詳しくは
+link:https://git-scm.com/book/ja/v1/%E4%BD%BF%E3%81%84%E5%A7%8B%E3%82%81%E3%82%8B-Git%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB[Git公式ドキュメント]
+を参照してください。
+
+[[install-git-to-windows]]
+=== Windows
+
+link:http://vdeep.net/git-for-windows[こちら]に詳しい導入が書かれているので、参考にしてください。
+
+[[create-github-account]]
+== GitHub アカウント作成手順
+
+. link:https://github.com/[GitHub] のサイトにアクセス
+. 必要事項を記入
+.. ID、メールアドレス、パスワードを入力して「Sigh up for GitHub」をクリック
+. 確認メール
+.. 登録したメールアドレスに確認メールが来るので、メールを開き、その中にある「verify email address」ボタンを押す
+.. 「Welcome to GitHub!」なるメールが来たら登録完了
+
+[[github-tutorial]]
+== GitHub チュートリアル
+
+[[git-account-seting]]
+=== アカウント設定
+
+ローカルにも git の設定を適用させましょう。 +
+ホームディレクトリに `.gitconfig` というファイルを作って以下のように書いてください。
+----
+$ vi .gitconfig
+[user]
+  name = [account name]
+  email = [mail address]
+[push]
+  default = simple
+----
+[NOTE]
+[account name] は登録したアカウント名を、[mail address] は登録したメールアドレスを記入してください。そのとき `[ ]` は付けないように注意してください。
+
+[[create-repository]]
+=== リポジトリを作る
+
+Git はリポジトリという単位でプロジェクト（簡単に言うとファイル群）を管理します。まず、git で管理したいディレクトリに移動します。そして、 git でファイルを管理するように認識させるように `$ git init` します。
+----
+$ cd /path/to/directory
+$ git init
+----
+これでカレントディレクトリ以下を git で管理出来るようになりました。この git で管理されているディレクトリのことを *リポジトリ* といいます。このディレクトリには `.git` というディレクトリが作成されます（`ls -A` で確認出来ます）。これは git が情報を保存するためのディレクトリであり、基本的にこのディレクトリを編集することはあまりありません。
+
+[[git-basic-workflow]]
+=== Git の基本的なワークフロー
+
+ここから Git の基本的な使い方を説明します。 +
+まず、あなたがあるファイルに変更を加える（例えばファイルに記述を足したり減らしたり、ファイルを作ったり削ったりする）とします。それをどのようにして Git に追跡させたらいいでしょうか。 +
+使うコマンドは簡単です。変更したファイルを `add` すればよいです。 +
+例えば、 `hoge.fuga` というファイルを作ってファイルにソースを書き込んだとします。 +
+
+.ステータスの確認
+----
+$ git status
+----
+
+してみてください。すると、あなたの変更がちゃんと `Git` に伝わっていれば次のように表示されるはずです。
+
+.ステータスメッセージの例
+----
+modified: hoge.fuga
+----
+
+これを `add` しましょう。
+
+.変更を `add` する
+----
+$ git add hoge.fuga
+----
+
+そして `commit` です。ちなみに `$ git commit` にはいくつかオプションがあり、よく使われるのは `-m` オプションです。次のように打つと `""` で囲まれた部分がコミットメッセージとして記録されます。
+
+.コミットメッセージを入れる
+----
+$ git commit -m "commit message"
+----
+
+もちろん `$ git commit` だけでもよいです。この場合 `vim` か `emacs` が立ち上がってコミットメッセージの編集が行われます。
+
+そして `push` といきたいところですが、ここで今までの作業がちゃんと `Git` に対して伝わっているかチェックしましょう。チェックするためのコマンドは、先ほど使った `$ git status` で行えます。 `$ git status` してちゃんとステージング（`push` でリモートにアップさせる前の段階）に上がっているか確認しましょう。 +
+さらに、
+
+.コミットログを確認する
+----
+$ git log
+----
+をすればコミットログを見れるので、参考までに覚えておきましょう。 +
+では、最後にリモートに `push` しましょう。
+
+.`master` に `push` する
+----
+$ git push -u origin master
+----
+
+`push` したあと、`GitHub` のサイトにいってちゃんと `push` できているか確認してみてください。
+
+以上のワークフローをまとめると次のようになります。
+
+.Git の基本的なワークフロー
+----
+$ git status
+$ git add hoge.fuga
+$ git commit -m "commit message"
+$ git push -u origin master
+----
+
+また、`push`  と対をなすコマンドとして `pull` があります。`pull` はリモートの変更をローカルに適用するためのコマンドです。基本的に `master` は常に最新にしないといけないので、`master` にいるときは
+
+.履歴を最新にする
+----
+$ git pull
+----
+
+して履歴を最新にしていおきましょう。
+
+これで基本的な流れは解説しました。他にも `branch` や `rebase` などといった機能があり、チーム開発には必須のコマンドです。次では `branch` について説明しますので、よく読んでおいてください。
+
+[[create-new-branch]]
+=== ブランチを切る
+
+チーム開発では必須の機能です。ブランチとはいわば「歴史」であり、マスターブランチを全員が追跡する歴史だとしたら、自分が作ったブランチは自分がメインで追跡する歴史です。 +
+ブランチを適切に切ることによってスムーズにチーム開発が行えます。 +
+なぜブランチを切るのかというと、全員が `master` にコミットしていったら全員が `master` を追い続けないといけないので効率が悪くなり、保守性の観点からあまりよろしくないからです。 +
+ブランチを切ることは簡単で、次のようなワークフローで行えます。
+
+.「ブランチを切る」とは
+[NOTE]
+「ブランチを切る」とは「あるコミットから伸びる新しいブランチを作ること」です。
+
+.新しく作ったブランチとマスターブランチの関係
+[NOTE]
+例えば、マスターブランチのあるコミットから新しいブランチを作ったとします（便宜上それをワーキングブランチと名前を付けます）。 +
+そして、マスターブランチとワーキングブランチ両方にコミットが加えられて行きますが、どちらもブランチが切られた以前のコミットは共有されているので、この2つのブランチの関係は「パラレルワールド」のようなものだとイメージしておけばよいです。
+
+.ブランチを切る時のワークフロー
+----
+$ git pull
+$ git branch "branch_name"
+$ git checkout "branch_name"
+----
+
+`pull` したのはブランチを切るときは最新の履歴から切ったほうが都合が良いからです。 +
+また、下2つのコマンドは `-b` オプションを使って以下のように省略できます。
+
+.ブランチを切る時のワークフロー（その２）
+----
+$ git pull
+$ git checkout -b "branch_name"
+----
+
+`master` に戻りたいときは、変更をコミットしたあと、
+
+.マスターブランチに移る
+----
+$ git checkout master
+----
+
+でよいです。
+
+== あとがき
+
+以上で基本的な使い方は説明しましたが、 Git にはまだまだたくさんの機能があります。 +
+それを解説しているおすすめのサイトがいくつかありますので、それをここで紹介したいと思います。
+
+* link:http://www.backlog.jp/git-guide/[サルでも分かるGit入門]
+* link:https://gist.github.com/yatemmma/6486028[git初心者への道]
+
+link:http://www.backlog.jp/git-guide/[サルでも分かるGit入門] はここで解説したような基本的な事項からさらっているので、これを読めばよい復習になると思います。 +
+link:https://gist.github.com/yatemmma/6486028[git初心者への道] は、実際の開発現場で使っているような実践的な機能まで解説しているので、「初心者」とありますが十分な内容があります。 +
+これら以外にも、インターネット上には Git に関する色々な記述がありますので、分からないことがあったら「git ◯◯」のようにググればたくさんヒットします。 +
+ぜひこの機会に Git をマスターしてモダンな開発環境を手に入れましょう！
