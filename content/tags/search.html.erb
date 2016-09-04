@@ -12,12 +12,7 @@ title: タグ検索
 		<section>
 			<h2>Query</h2>
 
-			<textarea id="htag-search-query" cols="60" data-query-version="1.0"></textarea>
-			<div>
-				<input id="universal-complement" type="checkbox" />
-				<label for="universal-complement">補集合をとる(該当しない記事のみを表示する)</label>
-			</div>
-			<button id="execute-filter" style="border: 1px solid #999; border-radius: 5px; padding: 5px">Filter</button>
+<%= render '/part/query-ui.html' %>
 		</section>
 		<section>
 			<h2>Result</h2>

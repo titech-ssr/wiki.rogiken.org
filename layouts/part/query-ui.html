@@ -1,0 +1,56 @@
+<%= render '/part/query-ui-style.html' %>
+      <div id="query-ui" class="container" style="width:100%">      
+        <child v-bind:query=""></child>
+        <template id="child">
+          <ul class="search" style="background-color:{{ conds[cond].color }};" v-on:mouseenter="showclose=true" v-on:mouseleave="showclose=false">
+            <div class="closebtn" v-show="showclose">
+              <button v-on:click="removecond($index)" class="btn btn-danger btn-xs">&#10005;</button>
+            </div>
+
+            <div class="content"> <!-- content -->
+              <div class="dropdown">
+                <button class="dropbtn btn btn-default" v-on:mouseenter="showlist=true">{{ conds[cond].text }}</button>
+                <div class="dropdown-content" v-show="showlist">
+                  <div v-for="item in conds" v-on:click="clickedcond(item)"><span>{{ item.text }}</span></div>
+                </div>
+              </div>
+
+              <div>
+                <span v-if="cond=='exact'||cond=='descendant'">
+                  <ul class="htags">              <!-- tag1/tag1-1, tag2 -->
+                    <li v-for="(index1, htag) in htags" style="display:flex">
+                      <div class="htags content" style="display:flex;align-items:center" v-on:mouseenter="showtaginput=index1" v-on:mouseleave="showtaginput=-1">                      
+                        <ul class="breadcrumb">    <!-- tag1/tag1-1 -->
+                          <div v-on:click="removehtag(index1)" class="fa fa-tags"></div>
+                          <li v-for="(index2, tag) in htag">
+                              <span v-on:click="removetag(index1, index2)">{{ tag }}</span>
+                          </li>
+                          <div class="dropdown">
+                            <input id="htagin" size=3 type="text" v-model="newtag" v-on:keydown="inteli($event) | debounce 100" v-on:keyup.enter="addhtag(index1)" v-on:keydown.8="deletehtag" placeholder="タグ" style="width:auto" v-if="showcloseand(index1==showtaginput)">
+                            <div class="candidates-content" v-if="showcandidatesand(index1==showtaginput)"><div  v-for="can in candidates" v-on:click="selectcand(can)"><span>{{ can }}</span></div></div>
+                          </div>
+                        </ul>
+                      </div>
+                    </li>
+                  </ul>
+                </span>
+                <div v-if="cond=='or'||cond=='and' || cond=='xor' || cond=='difference'" class="search">
+                  <div v-for="q in rest" class="children">
+                    <child v-bind:cquery="q"></child>
+                  </div>
+                  <button class="btn btn-primary" v-show="showclose" v-on:click="addcond">+</button>
+                </div>
+              </div>
+            </div>
+          </ul>
+        </template>
+        <textarea id="htag-search-query" cols="60" data-query-version="1.0" v-model="querytxt"></textarea>
+        <button type="button" class="btn btn-success" v-on:click="debug" style="display:none">debug</button>
+        <div>
+          <input id="universal-complement" type="checkbox" />
+          <label for="universal-complement">補集合をとる(該当しない記事のみを表示する)</label>
+        </div>
+        <button id="execute-filter" style="border: 1px solid #999; border-radius: 5px; padding: 5px">Filter</button>
+        <script src="./vue.min.js"></script>
+        <script type="text/javascript" src="./query_ui.js"></script>
+      </div>
