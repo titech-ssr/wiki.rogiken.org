@@ -31,4 +31,13 @@
 			</ul></li>
 		</ul>
 	</section>
+	<section>
+		<h3>タグ階層</h3>
+		<ul>
+			<% root_node = articles_htag_items_tree %>
+			<% root_node.children.each do |child| %>
+				<%= print_tagtree child, '/tags/' %>
+			<% end %>
+		</ul>
+	</section>
 </div>
