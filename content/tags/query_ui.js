@@ -237,4 +237,5 @@ $.getJSON("index.json", function(json){
   , O)};
   $Container.tags =  collect(json, []);
   console.log($Container.tags);
+  $Container.debug();
 });
