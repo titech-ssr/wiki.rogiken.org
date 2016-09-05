@@ -54,7 +54,7 @@ var Child = Vue.extend({
         return this.rest.map((htag)=> htag.split('/') );
       },
       candidates: function(){
-        return $Contaienr.candidates.reduce((o,e,i)=>{o[i]=e; return o;},{});
+        return $Container.candidates.reduce((o,e,i)=>{o[i]=e; return o;},{});
         //return ["HI","HEY", "HOY"];
       }
   },
@@ -78,15 +78,16 @@ var Child = Vue.extend({
       else 
         this.showcandidates = true;
 
-      if ($Contaienr.candidates == null || e.key == "Backspace"){
-        $Contaienr.candidates = $Contaienr.tags.filter((el,i)=>{return el.includes(this.newtag)});
+      if ($Container.candidates == null || e.key == "Backspace"){
+        $Container.candidates = $Container.tags.filter((el,i)=>{return el.includes(this.newtag)});
       }else
-        $Contaienr.candidates = $Contaienr.candidates.filter((el,i)=>{return el.includes(this.newtag)});
+        $Container.candidates = $Container.candidates.filter((el,i)=>{return el.includes(this.newtag)});
         
       //console.log(this.candidates);
     },
     addcond: function(){
       this.cquery.push(["exact", ""]);
+      $Container.querytxt = JSON.stringify($Container.query);
     },
     removecond: function(ind){
       var index = 0;
@@ -97,6 +98,8 @@ var Child = Vue.extend({
       if (index < 0) throw new RangeError(`Invalid index ${index} of Cond ${this.cquery}`);
       else
         this.$parent.cquery.splice(index, 1);
+
+      $Container.querytxt = JSON.stringify($Container.query);
     },
     addhtag: function(ind){
       var newtag = this.newtag;
@@ -107,10 +110,13 @@ var Child = Vue.extend({
         this.cquery[ind+1] += (this.cquery[ind+1] == "" ? "" : "/") + newtag;
         this.cquery.pop();
       }
+      $Container.querytxt = JSON.stringify($Container.query);
       setTimeout(()=>document.getElementById("htagin").focus(), 10);
+
     },
     removehtag: function(ind){
       this.cquery.splice(ind+1, 1);
+      $Container.querytxt = JSON.stringify($Container.query);
     },
     removetag: function(i1, i2){
       console.log(i1, i2);
@@ -122,10 +128,10 @@ var Child = Vue.extend({
       console.log(left);
       this.cquery[i1+1] = left.join('/');
       this.cquery.push(null);this.cquery.pop();
+      $Container.querytxt = JSON.stringify($Container.query);
     },
     clickedcond: function(e){
       this.cquery[0] = e.value;
-      //console.log(JSON.stringify(this.cquery));
       var terminal = ['exact', 'descendant'];
 
       // ex,ds ->  &|^
@@ -148,8 +154,8 @@ var Child = Vue.extend({
 
 
       //console.log(JSON.stringify(this.cquery));
-      //console.log(JSON.stringify($Contaienr.query));
-      $Contaienr.querytxt = JSON.stringify($Contaienr.query);
+      console.log(JSON.stringify($Container.query));
+      $Container.querytxt = JSON.stringify($Container.query);
 
       this.cond = e.value;
 
@@ -160,7 +166,7 @@ var Child = Vue.extend({
 Vue.component('child', Child);
 
 
-var $Contaienr = new Vue({
+var $Container = new Vue({
   el: '.container',
   data:{
     title:        '',
@@ -177,13 +183,14 @@ var $Contaienr = new Vue({
     ],
     showauth:       true,
     query: ["or",["descendant","ロ技研/部会ログ"],["descendant","ロ技研/ガイドライン"]],
+    querytxt: '',
     tags: null,
     candidates: null
   },
   computed:{
-    querytxt: function(){
+    /*querytxt: function(){
       return JSON.stringify(this.query);
-    }
+    }*/
   },
   created: function(){
   },
@@ -197,7 +204,7 @@ var $Contaienr = new Vue({
       this.showauth = !this.showauth;
     },
     debug: function(){
-      console.log(this.querytxt);
+      console.log(this.querytxt = JSON.stringify(this.query));
     }
   },
   transitions: {
@@ -228,6 +235,6 @@ $.getJSON("index.json", function(json){
         return collect(j[e], o);
     }
   , O)};
-  $Contaienr.tags =  collect(json, []);
-  console.log($Contaienr.tags);
+  $Container.tags =  collect(json, []);
+  console.log($Container.tags);
 });
