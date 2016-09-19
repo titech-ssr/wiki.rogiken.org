@@ -1,5 +1,6 @@
 'use strict'
 //Vue
+var debug = console;
 var Child = Vue.extend({
   template: '#child',
   props:[
@@ -8,13 +9,13 @@ var Child = Vue.extend({
   ],
   data: function(){
     return {
-      showlist: false,
-      showclose: false,
-      showtaginput: -1,
+      showlist:       false,
+      showclose:      false,
+      showtaginput:   -1,
       showcandidates: false,
-      newtag: '',
-      htags:null,
-      //cond: "exact",
+      newtag:         '',
+      htags:          null,
+      cond:           "descendant",
       conds:{
         exact:      { text: "Exac",   value: "exact",     color: "#ECEAEF"},
         descendant: { text: "Desc",   value: "descendant",color: "#ECEAEF"},
@@ -26,19 +27,12 @@ var Child = Vue.extend({
     };
   },
   created: function(){
+  
     if (this.cquery == null)
       this.cquery = this.$parent.query;
-    /*else{
-      //this.cquery[0] = `${this.cquery[0]}CRE`;
-      //console.log(JSON.stringify(this.cquery));
-    }*/
-      
 
     this.cond = this.cquery[0];
 
-    //console.log(this.cond);
-    //console.log(JSON.stringify(this.cquery));
-    //console.log(this.$parent.query);
   },
   computed:{
       selectwidth: function(){
@@ -55,7 +49,6 @@ var Child = Vue.extend({
       },
       candidates: function(){
         return $Container.candidates.reduce((o,e,i)=>{o[i]=e; return o;},{});
-        //return ["HI","HEY", "HOY"];
       }
   },
   methods:{
@@ -67,26 +60,22 @@ var Child = Vue.extend({
     },
     selectcand: function(can){
       this.showcandidates = false;
-      this.newtag = can;
-      setTimeout(()=>document.getElementById("htagin").focus(), 10);
-    },
-    selectcand: function(can){
-      this.showcandidates = false;
-      this.newtag = can;
-      setTimeout(()=>document.getElementById("htagin").focus(), 10);
+      this.newtag         = can;
+      const inp = document.getElementById("htagin");
+      if (inp !== null)
+        setTimeout(()=>inp.focus(), 10);
     },
     enterhtag: function(showinput, e) {
-      console.log( e.target.style, e , e.target.clientWidth);
+      //debug.log( e.target.style, e , e.target.clientWidth);
       e.target.style.width = `${e.target.clientWidth}px`;
 
       this.showtaginput = showinput;
     },
     leavehtag: function(e) {
-      this.showtaginput = -1;
+      this.showtaginput    = -1;
       e.target.style.width = "";
     },
     inteli: function(e){
-      //console.log("HI",e, this.newtag);
 
       if (e.key == "Enter" || e.key == "Escape")
         this.showcandidates = false;
@@ -98,17 +87,14 @@ var Child = Vue.extend({
       }else
         $Container.candidates = $Container.candidates.filter((el,i)=>{return el.includes(this.newtag)});
         
-      //console.log(this.candidates);
     },
     addcond: function(){
       this.cquery.push(["exact", ""]);
       $Container.querytxt = JSON.stringify($Container.query);
     },
     removecond: function(ind){
-      var index = 0;
-      console.log(
-        index = this.$parent.cquery.indexOf(this.$parent.cquery.filter((el,i)=>el === this.cquery)[0])
-      );
+      let index = 0;
+      index = this.$parent.cquery.indexOf(this.$parent.cquery.filter((el,i)=>el === this.cquery)[0])
 
       if (index < 0) throw new RangeError(`Invalid index ${index} of Cond ${this.cquery}`);
       else
@@ -117,41 +103,39 @@ var Child = Vue.extend({
       $Container.querytxt = JSON.stringify($Container.query);
     },
     addhtag: function(ind){
-      var newtag = this.newtag;
+      const newtag  = this.newtag;
       this.newtag = "";
 
       this.cquery.push("");
+
       if (newtag != ""){
         this.cquery[ind+1] += (this.cquery[ind+1] == "" ? "" : "/") + newtag;
         this.cquery.pop();
       }
+
       $Container.querytxt = JSON.stringify($Container.query);
       setTimeout(()=>document.getElementById("htagin").focus(), 10);
-
     },
     removehtag: function(ind){
       this.cquery.splice(ind+1, 1);
       $Container.querytxt = JSON.stringify($Container.query);
     },
     removetag: function(i1, i2){
-      console.log(i1, i2);
-      var tmpthag = this.htags[i1];
-      console.log(tmpthag);
-      tmpthag.splice(i2, 1);
-      console.log(tmpthag);
-      var left = tmpthag;
-      console.log(left);
-      this.cquery[i1+1] = left.join('/');
+      let tmphtag = this.htags[i1];
+      tmphtag.splice(i2, 1);
+
+      this.cquery[i1+1] = tmphtag.join('/');
       this.cquery.push(null);this.cquery.pop();
+
       $Container.querytxt = JSON.stringify($Container.query);
     },
     clickedcond: function(e){
       this.cquery[0] = e.value;
-      var terminal = ['exact', 'descendant'];
+      const terminal   = ['exact', 'descendant'];
 
       // ex,ds ->  &|^
       if (  terminal.includes(this.cond) && !terminal.includes(this.cquery[0])) {
-        var tmp = [];
+        let tmp = [];
         while( this.cquery.length > 1) tmp.unshift(this.cquery.pop());
         tmp.unshift("exact");
         this.cquery.push(tmp);
@@ -168,13 +152,11 @@ var Child = Vue.extend({
       }
 
 
-      //console.log(JSON.stringify(this.cquery));
-      console.log(JSON.stringify($Container.query));
+      debug.log(JSON.stringify($Container.query));
+      
       $Container.querytxt = JSON.stringify($Container.query);
-
-      this.cond = e.value;
-
-      this.showlist = false;
+      this.cond           = e.value;
+      this.showlist       = false;
     }
   }
 });
@@ -184,58 +166,14 @@ Vue.component('child', Child);
 var $Container = new Vue({
   el: '.container',
   data:{
-    title:        '',
-    htags_holder: [ { type: 'child' } ],
-    htags:        [],
-    kinditems:[
-      {text: 'article', value: 'article'}
-    ],
-    mathselected: 'none',
-    mathitems:[
-      {text: 'none',  value: 'none'},
-      {text: 'ON',    value: 'on'  },
-      {text: 'AMS',   value: 'AMS' }
-    ],
-    showauth:       true,
     query: ["or",["descendant","ロ技研/部会ログ"],["descendant","ロ技研/ガイドライン"]],
     querytxt: '',
     tags: null,
     candidates: null
   },
-  computed:{
-    /*querytxt: function(){
-      return JSON.stringify(this.query);
-    }*/
-  },
-  created: function(){
-  },
   methods:{
-    addhtagss: function(){
-      console.log("HI");
-      this.htags_holder.push({ type: 'child'});
-    },
-    switchauth: function(){
-      this.toggled = !this.toggled;
-      this.showauth = !this.showauth;
-    },
     debug: function(){
-      console.log(this.querytxt = JSON.stringify(this.query));
-    }
-  },
-  transitions: {
-    auth: {
-      beforeEnter: function(e){
-        console.log("beforeEnter");
-      },
-      afterEnter: function(e){
-        console.log("afterEnter");
-      },
-      enter: function(e){
-        console.log('enter');
-      },
-      afterLeave: function(e){
-        console.log("afterleave");
-      }
+      debug.log(this.querytxt = JSON.stringify(this.query));
     }
   }
 });
@@ -251,6 +189,6 @@ $.getJSON("index.json", function(json){
     }
   , O)};
   $Container.tags =  collect(json, []);
-  console.log($Container.tags);
+  debug.log($Container.tags);
   $Container.debug();
 });
