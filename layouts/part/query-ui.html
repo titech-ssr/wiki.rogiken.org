@@ -37,7 +37,7 @@
                 <div v-for="q in rest" class="children">
                   <child v-bind:cquery="q"></child>
                 </div>
-                <button class="btn btn-primary" v-show="showclose" v-on:click="addcond">+</button>
+                <button class="add btn btn-primary btn-xs" v-show="showclose" v-on:click="addcond">+</button>
               </div>
             </div>
           </ul>
