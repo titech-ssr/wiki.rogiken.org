@@ -10,7 +10,7 @@ var Child = Vue.extend({
     return {
       showlist: false,
       showclose: false,
-      showtaginput: 0,
+      showtaginput: -1,
       showcandidates: false,
       newtag: '',
       htags:null,
@@ -69,6 +69,21 @@ var Child = Vue.extend({
       this.showcandidates = false;
       this.newtag = can;
       setTimeout(()=>document.getElementById("htagin").focus(), 10);
+    },
+    selectcand: function(can){
+      this.showcandidates = false;
+      this.newtag = can;
+      setTimeout(()=>document.getElementById("htagin").focus(), 10);
+    },
+    enterhtag: function(showinput, e) {
+      console.log( e.target.style, e , e.target.clientWidth);
+      e.target.style.width = `${e.target.clientWidth}px`;
+
+      this.showtaginput = showinput;
+    },
+    leavehtag: function(e) {
+      this.showtaginput = -1;
+      e.target.style.width = "";
     },
     inteli: function(e){
       //console.log("HI",e, this.newtag);

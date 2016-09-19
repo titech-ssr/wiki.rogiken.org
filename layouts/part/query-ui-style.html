@@ -103,33 +103,53 @@ ul.breadcrumb {
   top:0;
   left:0;
 }
-.htags.content > ul.breadcrumb > div.fa.fa-tags:hover {
+.htags.content > ul.htag > div.fa.fa-tags:hover {
   color: red;
 }
 
 /* tag delete */
-ul.breadcrumb > li {
-  position: relative;
-}
-ul.breadcrumb > li > button {
-  position: absolute;
-  right: 0;
-  top: 0;
-}
-ul.breadcrumb > li:before {
+ul.htag > li:before {
   padding-left: 0;
   padding-right: 0;
 }
-ul.breadcrumb > li > span {
+ul.htag > li > span {
   padding-left: 5px;
   padding-right: 5px;
 }
-ul.breadcrumb > li > span:hover {
+ul.htag > li > span:hover {
   color: red;
 }
 
+/* breadcrumb */
+.htag {
+  border-radius: 4px;
+}
+ul.htag {
+  margin-bottom: 2px;
+  margin-top: 2px;
+  padding: 8px 15px 8px 15px;
+  background-color: #f5f5f5;
+
+  display: flex;
+  flex-wrap:nowrap;
+  align-items: center;
+}
+ul.htag > li {
+  display: flex;
+}
+ul.htag > li + li::before {
+  content: "/\00a0"; 
+  color: #ccc;
+}
+ul.htag > li > span {
+  white-space: nowrap;
+}
+ul.htag > * {
+  margin-right: 3px;
+}
+
 /* tag input */
-ul.breadcrumb > div > input {
+ul.htag > input {
   border-width: 0;
   background-color: #f5f5f5;
   position: relative;

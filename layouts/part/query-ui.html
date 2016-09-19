@@ -15,31 +15,29 @@
                 </div>
               </div>
 
-              <div>
-                <span v-if="cond=='exact'||cond=='descendant'">
-                  <ul class="htags">              <!-- tag1/tag1-1, tag2 -->
-                    <li v-for="(index1, htag) in htags" style="display:flex">
-                      <div class="htags content" style="display:flex;align-items:center" v-on:mouseenter="showtaginput=index1" v-on:mouseleave="showtaginput=-1">                      
-                        <ul class="breadcrumb">    <!-- tag1/tag1-1 -->
-                          <div v-on:click="removehtag(index1)" class="fa fa-tags"></div>
-                          <li v-for="(index2, tag) in htag">
-                              <span v-on:click="removetag(index1, index2)">{{ tag }}</span>
-                          </li>
-                          <div class="dropdown">
-                            <input id="htagin" size=3 type="text" v-model="newtag" v-on:keydown="inteli($event) | debounce 100" v-on:keyup.enter="addhtag(index1)" v-on:keydown.8="deletehtag" placeholder="タグ" style="width:auto" v-if="showcloseand(index1==showtaginput)">
-                            <div class="candidates-content" v-if="showcandidatesand(index1==showtaginput)"><div  v-for="can in candidates" v-on:click="selectcand(can)"><span>{{ can }}</span></div></div>
-                          </div>
-                        </ul>
-                      </div>
-                    </li>
-                  </ul>
-                </span>
-                <div v-if="cond=='or'||cond=='and' || cond=='xor' || cond=='difference'" class="search">
-                  <div v-for="q in rest" class="children">
-                    <child v-bind:cquery="q"></child>
-                  </div>
-                  <button class="btn btn-primary" v-show="showclose" v-on:click="addcond">+</button>
+              <div v-if="cond=='exact'||cond=='descendant'">
+                <ul class="htags">              <!-- tag1/tag1-1, tag2 -->
+                  <li v-for="(index1, htag) in htags" style="display:flex">
+                    <div class="htags content" style="display:flex;align-items:center;overflow-x: scroll;" v-on:mouseenter="enterhtag(index1, $event)" v-on:mouseleave="leavehtag($event)" v-el:htag>                      
+                      <ul class="htag">    <!-- tag1/tag1-1 -->
+                        <div v-on:click="removehtag(index1)" class="fa fa-tags"></div>
+                        <li v-for="(index2, tag) in htag">
+                            <span v-on:click="removetag(index1, index2)">{{ tag }}</span>
+                        </li>
+                        <input id="htagin" size=3 type="text" v-model="newtag" v-on:keydown="inteli($event) | debounce 100" v-on:keyup.enter="addhtag(index1)" v-on:keydown.8="deletehtag" placeholder="タグ" style="width:auto" v-if="showcloseand(index1==showtaginput)">
+                      </ul>
+                    </div>
+                    <div class="dropdown">
+                      <div class="candidates-content" v-if="showcandidatesand(showclose)"><div  v-for="can in candidates" v-on:click="selectcand(can)"><span>{{ can }}</span></div></div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div v-if="cond=='or'||cond=='and' || cond=='xor' || cond=='difference'" class="search">
+                <div v-for="q in rest" class="children">
+                  <child v-bind:cquery="q"></child>
                 </div>
+                <button class="btn btn-primary" v-show="showclose" v-on:click="addcond">+</button>
               </div>
             </div>
           </ul>
