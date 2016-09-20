@@ -24,11 +24,16 @@
                         <li v-for="(index2, tag) in htag">
                             <span v-on:click="removetag(index1, index2)">{{ tag }}</span>
                         </li>
-                        <input id="htagin" size=3 type="text" v-model="newtag" v-on:keydown="inteli($event) | debounce 100" v-on:keyup.enter="addhtag(index1)" v-on:keydown.8="deletehtag" placeholder="タグ" style="width:auto" v-if="showcloseand(index1==showtaginput)">
+                        <input id="htagin" size="3" type="text" v-model="newtag" v-on:keydown="inteli($event) | debounce 100" v-on:keyup.enter="addhtag(index1)" v-on:keydown.8="deletetag(index1)" v-on:keydown.tab="candhovernext(1)" v-on:keydown.down="candhovernext(1)" v-on:keydown.up="candhovernext(-1)" placeholder="タグ" style="width:auto" v-if="showcloseand(index1==showtaginput)">
+
                       </ul>
                     </div>
                     <div class="dropdown">
-                      <div class="candidates-content" v-if="showcandidatesand(showclose)"><div  v-for="can in candidates" v-on:click="selectcand(can)"><span>{{ can }}</span></div></div>
+                      <ul class="candidates-content" v-if="showcandidatesand(showclose)" el:cand>
+                        <li v-for="(row, can) in candidates" v-on:click="selectcand(can)" v-on:mouseenter="hovercandidate(row, $event)" v-on:mouseleave="leavecandidate($event)">
+                          <span>{{ can }}</span>
+                        </li>
+                      </ul>
                     </div>
                   </li>
                 </ul>

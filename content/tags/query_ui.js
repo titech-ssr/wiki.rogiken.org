@@ -13,6 +13,7 @@ var Child = Vue.extend({
       showclose:      false,
       showtaginput:   -1,
       showcandidates: false,
+      candhover:  -1,
       newtag:         '',
       htags:          null,
       cond:           "descendant",
@@ -66,27 +67,57 @@ var Child = Vue.extend({
         setTimeout(()=>inp.focus(), 10);
     },
     enterhtag: function(showinput, e) {
-      //debug.log( e.target.style, e , e.target.clientWidth);
-      e.target.style.width = `${e.target.clientWidth}px`;
-
-      this.showtaginput = showinput;
+     //debug.log(e);
+     e.target.style.width = `${e.target.clientWidth}px`;
+     setTimeout(()=> $(e.target).animate({scrollLeft : e.target.scrollWidth},{easing:'swing'}), 50);
+     this.showtaginput = showinput;
     },
     leavehtag: function(e) {
+      if (this.showcandidates) return;
+
       this.showtaginput    = -1;
       e.target.style.width = "";
     },
+    hovercandidate: function(i, e){
+      this.candhover = i;
+      this.newtag = e.target.innerText;                                                               
+      e.target.className = "hover";
+    },  
+    leavecandidate: function(e){
+      this.candhover = -1;                                                                            
+      e.target.className = "";
+    },
+    candhovernext: function(delta) {                                                                  
+      if (!this.showcandidates) return;
+      
+      const list = document.getElementsByClassName("candidates-content")[0].children;
+
+      if (this.candhover >= 0) list[this.candhover].className = "";
+
+      const i = (this.candhover+delta) % list.length;
+
+      if (i >= 0) list[this.candhover = i].className = "hover";
+      else        list[this.candhover = list.length+i] = "hover";
+
+      this.newtag = list[this.candhover].innerText;
+
+      setTimeout(()=>document.getElementById("htagin").focus(), 10);
+    },
     inteli: function(e){
+      if ((e.key === "Tab" || e.key === "ArrowUp" || e.key === "ArrowDown") && this.showcandidates) return;
 
       if (e.key == "Enter" || e.key == "Escape")
         this.showcandidates = false;
-      else 
+      else {
         this.showcandidates = true;
+        document.getElementById("htagin").focus();
+      }
 
       if ($Container.candidates == null || e.key == "Backspace"){
         $Container.candidates = $Container.tags.filter((el,i)=>{return el.includes(this.newtag)});
       }else
         $Container.candidates = $Container.candidates.filter((el,i)=>{return el.includes(this.newtag)});
-        
+
     },
     addcond: function(){
       this.cquery.push(["exact", ""]);
@@ -120,7 +151,7 @@ var Child = Vue.extend({
       this.cquery.splice(ind+1, 1);
       $Container.querytxt = JSON.stringify($Container.query);
     },
-    removetag: function(i1, i2){
+    removetag: function(i1, i2){      // [0,1,2...] x [0,1,2..]
       let tmphtag = this.htags[i1];
       tmphtag.splice(i2, 1);
 
@@ -128,6 +159,12 @@ var Child = Vue.extend({
       this.cquery.push(null);this.cquery.pop();
 
       $Container.querytxt = JSON.stringify($Container.query);
+    },
+    deletetag: function(row) {
+      if (this.newtag !== "") return;
+      this.removetag(row, this.cquery.length-1);
+       
+      setTimeout(()=>document.getElementById("htagin").focus(), 10);
     },
     clickedcond: function(e){
       this.cquery[0] = e.value;
