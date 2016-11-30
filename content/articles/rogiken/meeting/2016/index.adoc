@@ -9,3 +9,4 @@ excerpt: "rogyの部会のログです。4月はありません(忘れた)"
 * link:/rogiken/meeting/2016/07[7月部会]
 * link:/rogiken/meeting/2016/09[9月部会]
 * link:/rogiken/meeting/2016/10[10月部会]
+* link:/rogiken/meeting/2016/11[11月部会]
