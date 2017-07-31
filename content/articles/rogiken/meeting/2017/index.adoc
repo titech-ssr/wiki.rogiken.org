@@ -4,8 +4,8 @@ created_at: 2017-08-01
 excerpt: "rogyの部会のログです。4月はないっぽい？"
 ---
 
-* link:/rogiken/meeting/2017/2月部会 [2月部会]
-* link:/rogiken/meeting/2017/3月部会 [3月部会]
-* link:/rogiken/meeting/2017/5月部会 [5月部会]
-* link:/rogiken/meeting/2017/6月部会 [6月部会]
-* link:/rogiken/meeting/2017/7月部会 [7月部会]
+* link:/rogiken/meeting/2017/02[2月部会]
+* link:/rogiken/meeting/2017/03[3月部会]
+* link:/rogiken/meeting/2017/05[5月部会]
+* link:/rogiken/meeting/2017/06[6月部会]
+* link:/rogiken/meeting/2017/07[7月部会]
